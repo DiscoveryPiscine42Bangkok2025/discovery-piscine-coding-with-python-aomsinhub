@@ -4,3 +4,4 @@ if len(sys.argv) == 3:
     print(len(strSplit)-1)
 else:
     print("none")
+# python3 .\scan_it.py "the" "thequickbrownfoxjumpsoverthelazydog"
