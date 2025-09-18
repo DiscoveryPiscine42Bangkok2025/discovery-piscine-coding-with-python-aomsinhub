@@ -20,7 +20,6 @@ def checkmate(board: str):
 
 
 
-
     def inside(x, y):
         return 0 <= x < h and 0 <= y < w
 
