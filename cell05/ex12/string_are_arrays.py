@@ -6,4 +6,4 @@ if len(sys.argv) == 2:
     else:
         print("none")
 else:
-    print("none")
+    print("none")   

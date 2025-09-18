@@ -1,11 +1,10 @@
 def checkmate(board: str):
-    # แปลงกระดานจาก string ให้เป็น list 2D
     rows = board.strip().split("\n")
     grid = [list(r.strip()) for r in rows]
 
     h, w = len(grid), len(grid[0])
 
-    # หา King
+    #King
     king_pos = None
     for i in range(h):
         for j in range(w):
@@ -16,25 +15,25 @@ def checkmate(board: str):
             break
 
     if not king_pos:
-        print("Fail")  # ไม่มี King
+        print("Fail")
         return
 
-    ki, kj = king_pos
 
-    # --------- Helper ฟังก์ชัน ---------
+
+
     def inside(x, y):
         return 0 <= x < h and 0 <= y < w
 
+    # Pawn
     def pawn_attacks(i, j):
-        # Pawn เดินเฉียงขึ้นไปหา King (ตามที่คุณกำหนด)
         for di, dj in [(-1, -1), (-1, 1)]:
             ni, nj = i + di, j + dj
             if inside(ni, nj) and (ni, nj) == king_pos:
                 return True
         return False
 
+    # Rook
     def rook_attacks(i, j):
-        # เดินเป็นเส้นตรง 4 ทิศ
         for di, dj in [(1,0),(-1,0),(0,1),(0,-1)]:
             ni, nj = i+di, j+dj
             while inside(ni, nj):
@@ -45,9 +44,9 @@ def checkmate(board: str):
                 ni += di
                 nj += dj
         return False
-
+    
+    # Bishop
     def bishop_attacks(i, j):
-        # เดินทแยง 4 ทิศ
         for di, dj in [(1,1),(1,-1),(-1,1),(-1,-1)]:
             ni, nj = i+di, j+dj
             while inside(ni, nj):
@@ -59,11 +58,11 @@ def checkmate(board: str):
                 nj += dj
         return False
 
+    # Queen
     def queen_attacks(i, j):
-        # ควีน = rook + bishop
         return rook_attacks(i,j) or bishop_attacks(i,j)
 
-    # --------- Loop หาหมากทั้งหมด ---------
+
     for i in range(h):
         for j in range(w):
             piece = grid[i][j]
@@ -81,6 +80,4 @@ def checkmate(board: str):
             if piece == "Q" and queen_attacks(i,j):
                 print("Success")
                 return
-
-    # ถ้าไม่มีใครกินได้
     print("Fail")
